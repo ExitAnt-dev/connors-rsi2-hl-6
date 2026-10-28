@@ -75,7 +75,8 @@ Nothing else to configure: the exchange, trading mode and state-file location ar
   around the clock — **keep the bot running**.
 - Keeps one account per symbol (trading pocket + vault), like TanQuant's multi-asset backtest. The Turtle merge moves part of the profit to the
   vault (your account's **Spot USDC**) on a trend exit and reinjects it after a deep drawdown, by the USA Turtle rules.
-- Hyperliquid holds **one position per coin**: a symbol runs long *or* short (the “Both” direction is not offered, also when changing settings).
+- Hyperliquid holds **one position per coin**: a symbol runs long *or* short (the “Both” direction is not offered, also when changing settings), and the
+  Turtle + Connors merge is **long only** — a Turtle long and a Connors short on the same coin would net against each other.
 - Re-checks every hour while trading that the fee approval still holds. If it was lowered (for example by another bot on the same wallet), the bot
   approves it again with the wallet signature; if that fails, it stops opening new positions — the stops and exits of held positions keep running —
   and tells you in Telegram.
