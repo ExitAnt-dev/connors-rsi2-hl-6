@@ -31,12 +31,14 @@ https://render.com/deploy?repo=https://github.com/ExitAnt-dev/connors-rsi2-hl-6
   Do not run another bot or trade by hand on the same wallet: Hyperliquid keeps one position per coin, so the positions would mix, and another
   ExitAnt Hyperliquid bot on the same wallet would overwrite this bot's fee approval (see below).
 - **The private key of that wallet** (`0x` + 64 hexadecimal characters; the `0x` is optional) — not the wallet address and not an API wallet.
-  The key signs orders, the fee approval and transfers between your own balances inside the bot; it never leaves the bot, and the bot never writes
+  The key signs orders, the fee approval, the switch to the Manual account type and transfers between your own balances inside the bot; it never leaves the bot, and the bot never writes
   it to logs, files or Telegram. It sits only in your Render environment variable, so keep your Render account secure (2FA).
   **The bot never asks for a key in Telegram** — a message asking for one is not from the bot.
-- **Account type: Manual** (the API calls it standard). The bot does not start on a Unified Account or Portfolio Margin account. To switch:
-  on the Hyperliquid trade screen click the **Unified** button above the order form (next to Cross and the leverage) → **Account Type** →
-  **Manual** → sign. Then move USDC from Spot to Perps with **Transfer** — a Unified Account has no Spot ⇄ Perps transfer, only EVM.
+- **Account type: Manual** (the API calls it standard). On a Unified Account or Portfolio Margin account the bot switches it to Manual at the first
+  start with the wallet signature and moves the USDC from Spot to Perps — only while no position or order is open (otherwise it tells you to close
+  them first). To switch it yourself: on the Hyperliquid trade screen click the **Unified** button above the order form (next to Cross and the
+  leverage) → **Account Type** → **Manual** → sign, then move USDC from Spot to Perps with **Transfer** — a Unified Account has no Spot ⇄ Perps
+  transfer, only EVM.
 - **Builder fee approval = the membership check.** At the first start the bot approves the ExitAnt builder fee for this wallet (up to 0.1% per trade,
   charged by Hyperliquid on each fill) and then confirms it with the ExitAnt server. Only the wallet's public address is sent, never the key.
   Without a confirmed approval nothing is traded.
